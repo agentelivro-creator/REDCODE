@@ -23,6 +23,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Preparar pasta www
+        run: |
+          mkdir -p www
+          if [ -f index.html ] && [ ! -f www/index.html ]; then cp index.html www/index.html; fi
+
       - name: Instalar dependências
         run: npm install
 
