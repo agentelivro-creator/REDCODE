@@ -37,6 +37,38 @@ jobs:
       - name: Sincronizar app web
         run: npx cap sync android
 
+      - name: Gerar ícone do app
+        run: |
+          pip install pillow
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw
+          import os
+          src = Image.open("icon.png").convert("RGB")
+          res = "android/app/src/main/res"
+          sizes = {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}
+          for d, s in sizes.items():
+              p = f"{res}/mipmap-{d}"
+              os.makedirs(p, exist_ok=True)
+              sq = src.resize((s, s), Image.LANCZOS)
+              sq.save(f"{p}/ic_launcher.png")
+              m = Image.new("L", (s * 4, s * 4), 0)
+              ImageDraw.Draw(m).ellipse((0, 0, s * 4 - 1, s * 4 - 1), fill=255)
+              m = m.resize((s, s), Image.LANCZOS)
+              r = sq.convert("RGBA")
+              r.putalpha(m)
+              r.save(f"{p}/ic_launcher_round.png")
+              f = int(s * 108 / 48)
+              inner = int(f * 0.72)
+              canvas = Image.new("RGBA", (f, f), (0, 0, 0, 0))
+              canvas.paste(src.resize((inner, inner), Image.LANCZOS).convert("RGBA"), ((f - inner) // 2, (f - inner) // 2))
+              canvas.save(f"{p}/ic_launcher_foreground.png")
+          os.makedirs(f"{res}/mipmap-anydpi-v26", exist_ok=True)
+          xml = '<?xml version="1.0" encoding="utf-8"?>\n<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">\n  <background android:drawable="@color/ic_launcher_background"/>\n  <foreground android:drawable="@mipmap/ic_launcher_foreground"/>\n</adaptive-icon>\n'
+          for n in ("ic_launcher.xml", "ic_launcher_round.xml"):
+              open(f"{res}/mipmap-anydpi-v26/{n}", "w").write(xml)
+          open(f"{res}/values/ic_launcher_background.xml", "w").write('<?xml version="1.0" encoding="utf-8"?>\n<resources>\n  <color name="ic_launcher_background">#0D0000</color>\n</resources>\n')
+          PY
+
       - name: Gerar APK
         working-directory: android
         run: |
