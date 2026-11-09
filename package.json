@@ -1,0 +1,11 @@
+{
+  "name": "redcode",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REDCODE - Aprenda a programar. Desenvolvido por Josimar.",
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  }
+}

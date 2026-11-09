@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>REDCODE · Aprenda a programar</title>
+<style>
+:root{--bg:#0a0a0a;--card:#141414;--line:#2a2a2a;--red:#ff2b2b;--txt:#f5f5f5;--mut:#9a9a9a;--ok:#3ddc84;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:2px solid var(--red);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.logo{font-weight:900;letter-spacing:1px;font-size:20px}.logo b{color:var(--red)}
+#menu{display:none;background:none;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 10px;font-size:18px}
+.prog{flex:1;max-width:320px;margin-left:auto}.prog small{color:var(--mut);font-size:12px}
+.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--red);transition:width .4s}
+.wrap{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 60px)}
+aside{border-right:1px solid var(--line);padding:14px;overflow:auto}
+aside h4{margin:16px 0 6px;font-size:12px;letter-spacing:1.5px;color:var(--red);text-transform:uppercase}
+aside button{display:flex;width:100%;gap:8px;text-align:left;background:none;border:0;color:var(--txt);padding:8px 10px;border-radius:8px;font:inherit;font-size:14px;cursor:pointer}
+aside button:hover{background:var(--card)}aside button.on{background:var(--red);color:#fff}
+aside button.ok::after{content:"✓";margin-left:auto;color:var(--ok)}aside button.on.ok::after{color:#fff}
+main{padding:22px;max-width:860px;width:100%}
+.tag{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px}
+h1{margin:8px 0 14px;font-size:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.card p{margin:6px 0}.task{border-left:4px solid var(--red)}
+code{background:#222;color:#ff8a8a;padding:1px 6px;border-radius:5px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+pre{background:#000;border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;margin:8px 0;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#f5f5f5}
+textarea{width:100%;height:220px;background:#000;color:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical;tab-size:2}
+textarea:focus{outline:2px solid var(--red)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.btns button{border:1px solid var(--line);background:var(--card);color:var(--txt);padding:10px 16px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.btns .run{background:var(--red);border-color:var(--red);color:#fff}.btns button:disabled{opacity:.35;cursor:default}
+#out{white-space:pre-wrap;min-height:44px}
+.res{padding:10px 14px;border-radius:10px;margin-top:10px;font-weight:600}.res.good{background:#0f2a1a;border:1px solid var(--ok);color:var(--ok)}.res.bad{background:#2a0f0f;border:1px solid var(--red);color:#ff8a8a}
+.lbl{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+body{background:radial-gradient(900px 500px at 90% -10%,#4a0b0b66,transparent) fixed,radial-gradient(700px 400px at -10% 110%,#2a0707,transparent) fixed,var(--bg)}
+.logo b{text-shadow:0 0 14px #ff2b2b99}
+.rank{font-size:12px;font-weight:700;color:var(--red);border:1px solid var(--red);padding:2px 10px;border-radius:20px;white-space:nowrap}
+.card{transition:border-color .2s}.card:hover{border-color:#4a4a4a}
+.btns button{transition:.15s}.btns button:hover:not(:disabled){transform:translateY(-1px);border-color:var(--red)}.btns .run:hover{filter:brightness(1.15)}
+h1{background:linear-gradient(90deg,#fff,#ffb3b3);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kw{color:#ff6b6b}.st{color:#7ee787}.cm{color:#6b6b6b}.nm{color:#ffb86c}
+aside h4 span{float:right;color:var(--mut);letter-spacing:0}
+.foot{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}.foot button{display:inline-block;width:auto;margin-top:6px;border:1px solid var(--line);font-size:12px}
+#conf{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}.p{position:absolute;top:-14px;width:8px;height:12px;animation:fall 1.8s ease-in forwards}@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.3}}
+.res{animation:pop .3s}@keyframes pop{from{transform:scale(.94);opacity:0}}
+.by{margin:28px 0 10px;padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--mut)}.by b{color:var(--red);letter-spacing:.5px}
+@media(max-width:800px){#menu{display:block}.wrap{display:block}aside{position:fixed;top:0;bottom:0;left:0;width:84%;max-width:320px;background:var(--bg);z-index:9;transform:translateX(-100%);transition:transform .25s;padding-top:calc(14px + env(safe-area-inset-top,0px))}aside.open{transform:none}main{padding:16px}h1{font-size:24px}.prog small{display:none}}
+</style>
+</head>
+<body>
+<header><button id="menu" aria-label="Menu">☰</button><div class="logo">RED<b>CODE</b></div><span class="rank" id="rk"></span><button id="snd" aria-label="Som" style="background:none;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:4px 9px;font-size:16px;cursor:pointer">🔊</button><div class="prog"><small id="pt"></small><div class="bar"><i id="pb"></i></div></div></header>
+<div id="conf"></div><div class="wrap"><aside id="side"></aside>
+<main>
+<span class="tag" id="lv"></span><h1 id="ti"></h1>
+<div class="card" id="th"></div>
+<div class="card task"><div class="lbl">Missão</div><div id="tk"></div></div>
+<textarea id="ed" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+<div class="btns"><button class="run" id="bRun">▶ Executar</button><button id="bHint">💡 Dica</button><button id="bReset">↺ Recomeçar</button><button id="bPrev" aria-label="Anterior">◀</button><button id="bNext" disabled>Próxima ➜</button></div>
+<div id="hint" class="card" hidden></div>
+<div class="lbl">Saída do seu código</div><pre id="out"></pre>
+<div id="res"></div>
+<footer class="by">Desenvolvido por <b>Josimar</b></footer>
+</main></div>
+<script>
+const LV=["Nível 1 · Iniciante","Nível 2 · Básico","Nível 3 · Intermediário","Nível 4 · Avançado","Nível 5 · Expert"];
+const O='T(__o.join("\\n"))';
+const L=[
+{l:0,t:"Olá, mundo",th:"<p>Todo programador começa aqui. <code>console.log()</code> mostra uma mensagem na saída. Textos ficam entre aspas.</p><pre>console.log(\"Oi!\");</pre>",tk:"Mostre exatamente: <b>Olá, mundo!</b>",st:"// escreva aqui\n",test:O,ex:"Olá, mundo!",h:"console.log(\"Olá, mundo!\");"},
+{l:0,t:"Variáveis",th:"<p>Variáveis guardam valores com nome. Use <code>let</code>.</p><pre>let cidade = \"Recife\";\nlet pontos = 10;</pre>",tk:"Altere o código para que <code>nome</code> seja “Ana” e <code>idade</code> seja 20.",st:"let nome = \"\";\nlet idade = 0;\n",test:'T(nome+" "+idade)',ex:"Ana 20",h:"Troque os valores: let nome = \"Ana\"; let idade = 20;"},
+{l:0,t:"Matemática",th:"<p>Operadores: <code>+ - * /</code> e <code>%</code> (resto). Parênteses mandam na ordem.</p><pre>let total = (2 + 3) * 4; // 20</pre>",tk:"Crie as variáveis <code>largura = 8</code>, <code>altura = 5</code> e <code>area</code> com a área do retângulo.",st:"let largura;\nlet altura;\nlet area;\n",test:"T(area)",ex:"40",h:"area = largura * altura;"},
+{l:0,t:"Textos e funções",th:"<p>Uma função recebe valores e devolve um resultado com <code>return</code>. Com crases você insere variáveis no texto:</p><pre>function oi(n){\n  return `Oi, ${n}!`;\n}</pre>",tk:"Crie <code>saudacao(nome)</code> que devolva <b>Olá, NOME!</b>",st:"function saudacao(nome){\n  \n}\n",test:'T(saudacao("Leo"))',ex:"Olá, Leo!",h:"return `Olá, ${nome}!`;"},
+{l:1,t:"Condicionais",th:"<p><code>if / else</code> decide o caminho do código.</p><pre>if (idade &gt;= 18) {\n  return \"adulto\";\n} else {\n  return \"menor\";\n}</pre>",tk:"Crie <code>parOuImpar(n)</code> que devolva “par” ou “impar”.",st:"function parOuImpar(n){\n  \n}\n",test:"T(parOuImpar(4),parOuImpar(7))",ex:"par impar",h:"Número par tem resto 0 ao dividir por 2: n % 2 === 0"},
+{l:1,t:"Laços (loops)",th:"<p><code>for</code> repete tarefas.</p><pre>for (let i = 1; i &lt;= 3; i++) {\n  console.log(i);\n}</pre>",tk:"Crie <code>soma(n)</code> que some todos os números de 1 até n.",st:"function soma(n){\n  \n}\n",test:"T(soma(10),soma(100))",ex:"55 5050",h:"Crie let total = 0; some i em cada volta do for; devolva total."},
+{l:1,t:"Arrays (listas)",th:"<p>Arrays guardam vários valores. Índices começam em 0.</p><pre>let nums = [4, 8, 15];\nnums[0];      // 4\nnums.length;  // 3\nnums.push(16);</pre>",tk:"Crie <code>contarPares(arr)</code> que devolva quantos números pares existem na lista.",st:"function contarPares(arr){\n  \n}\n",test:"T(contarPares([1,2,3,4,6]),contarPares([]))",ex:"3 0",h:"Percorra com for...of e incremente um contador quando x % 2 === 0."},
+{l:1,t:"Lógica: FizzBuzz",th:"<p>O clássico de entrevistas. Combine condições com <code>&amp;&amp;</code> (e) e <code>||</code> (ou). Teste o caso mais específico primeiro.</p>",tk:"Crie <code>fizzbuzz(n)</code>: múltiplo de 3 → “Fizz”, de 5 → “Buzz”, de ambos → “FizzBuzz”, senão o próprio número.",st:"function fizzbuzz(n){\n  \n}\n",test:"T(fizzbuzz(3),fizzbuzz(5),fizzbuzz(15),fizzbuzz(7))",ex:"Fizz Buzz FizzBuzz 7",h:"Verifique primeiro n % 15 === 0."},
+{l:2,t:"map, filter, reduce",th:"<p>Transforme listas sem laços manuais:</p><pre>[1,2,3].map(x =&gt; x * 2);        // [2,4,6]\n[1,2,3].filter(x =&gt; x &gt; 1);     // [2,3]\n[1,2,3].reduce((a,x) =&gt; a + x, 0); // 6</pre>",tk:"Crie <code>somaQuadradosPares(arr)</code>: eleve os pares ao quadrado e some tudo.",st:"function somaQuadradosPares(arr){\n  \n}\n",test:"T(somaQuadradosPares([1,2,3,4]))",ex:"20",h:"arr.filter(...).map(...).reduce(...)"},
+{l:2,t:"Objetos",th:"<p>Objetos guardam pares chave: valor — ótimos para contar coisas.</p><pre>let c = {};\nc[\"a\"] = (c[\"a\"] || 0) + 1;</pre>",tk:"Crie <code>contarPalavras(texto)</code> que devolva um objeto com quantas vezes cada palavra aparece.",st:"function contarPalavras(texto){\n  \n}\n",test:'T(JSON.stringify(contarPalavras("a b a")))',ex:'{"a":2,"b":1}',h:"texto.split(\" \") e depois um for...of atualizando o objeto."},
+{l:2,t:"Recursão",th:"<p>Uma função que chama a si mesma. Precisa de um <b>caso base</b> para parar.</p><pre>function contagem(n){\n  if (n === 0) return;\n  console.log(n);\n  contagem(n - 1);\n}</pre>",tk:"Crie <code>fatorial(n)</code> usando recursão (fatorial de 0 é 1).",st:"function fatorial(n){\n  \n}\n",test:"T(fatorial(0),fatorial(5),fatorial(10))",ex:"1 120 3628800",h:"Se n <= 1 devolva 1; senão n * fatorial(n - 1)."},
+{l:2,t:"Manipulando textos",th:"<p>Métodos úteis: <code>toLowerCase()</code>, <code>replace()</code>, <code>split()</code>, <code>reverse()</code>, <code>join()</code>. Expressões regulares como <code>/\\s/g</code> pegam padrões.</p>",tk:"Crie <code>ehPalindromo(s)</code>: ignore maiúsculas e espaços (sem acentos).",st:"function ehPalindromo(s){\n  \n}\n",test:'T(ehPalindromo("Socorram me subi no onibus em Marrocos"),ehPalindromo("Claude"))',ex:"true false",h:"Limpe com s.toLowerCase().replace(/\\s/g, \"\") e compare com o texto invertido (split, reverse, join)."},
+{l:3,t:"Closures",th:"<p>Uma função “lembra” das variáveis de onde nasceu. Isso permite estado privado.</p><pre>function criar(){\n  let x = 0;\n  return () =&gt; ++x;\n}</pre>",tk:"Crie <code>criarContador()</code> que devolva uma função que conta 1, 2, 3… Cada contador é independente.",st:"function criarContador(){\n  \n}\n",test:"const c=criarContador(); c(); c(); T(c(), criarContador()())",ex:"3 1",h:"Declare let n = 0 dentro e devolva () => ++n."},
+{l:3,t:"Classes (POO)",th:"<p>Classes agrupam dados e comportamento. <code>get</code> cria propriedades calculadas.</p><pre>class Ponto {\n  constructor(x){ this.x = x; }\n  get dobro(){ return this.x * 2; }\n}</pre>",tk:"Crie a classe <code>Pilha</code> com <code>push(x)</code>, <code>pop()</code> e a propriedade <code>tamanho</code>. A pilha é LIFO: o último a entrar é o primeiro a sair.",st:"class Pilha {\n  \n}\n",test:"const p=new Pilha();p.push(1);p.push(2);T(p.pop(),p.tamanho,p.pop(),p.pop())",ex:"2 1 1 undefined",h:"Guarde um array em this.itens e use push/pop dele."},
+{l:3,t:"Assincronia",th:"<p>Tarefas demoradas devolvem <b>Promises</b>. Com <code>async/await</code> o código fica linear.</p><pre>const esperar = ms =&gt;\n  new Promise(r =&gt; setTimeout(r, ms));\nawait esperar(100);</pre>",tk:"Crie <code>async function dobrarDepois(n)</code> que espere 10 ms e devolva n * 2.",st:"async function dobrarDepois(n){\n  \n}\n",test:"T(await dobrarDepois(21))",ex:"42",h:"await new Promise(r => setTimeout(r, 10)); return n * 2;"},
+{l:3,t:"Algoritmo de ordenação",th:"<p>Ordenar é base de ciência da computação. O <b>bubble sort</b> compara vizinhos e troca se estiverem fora de ordem, repetindo até terminar. Custo: O(n²).</p>",tk:"Crie <code>ordenar(arr)</code> SEM usar <code>.sort()</code>. Devolva uma cópia ordenada (use <code>[...arr]</code>).",st:"function ordenar(arr){\n  \n}\n",test:'T(ordenar([5,2,9,1]).join(","),ordenar([]).length)',ex:"1,2,5,9 0",h:"Dois for aninhados; se a[j] > a[j+1], troque com [a[j],a[j+1]] = [a[j+1],a[j]]."},
+{l:4,t:"Pilha na prática",th:"<p>Estruturas de dados resolvem problemas reais. Uma pilha valida parênteses: abriu, empilha; fechou, o topo precisa ser o par correspondente.</p>",tk:"Crie <code>balanceado(s)</code> para <code>()[]{}</code>.",st:"function balanceado(s){\n  \n}\n",test:'T(balanceado("{[()]}"),balanceado("([)]"),balanceado("(("))',ex:"true false false",h:"Mapa {\")\":\"(\",\"]\":\"[\",\"}\":\"{\"}. No fim a pilha deve estar vazia."},
+{l:4,t:"Memoização",th:"<p>Guardar resultados já calculados evita repetir trabalho. Fibonacci ingênuo recalcula tudo (O(2ⁿ)); com cache vira O(n).</p><pre>const cache = new Map();</pre>",tk:"Crie <code>fib(n)</code> com memoização (fib(0)=0, fib(1)=1).",st:"function fib(n){\n  \n}\n",test:"T(fib(10),fib(40))",ex:"55 102334155",h:"Use um Map fora da função: se cache.has(n) devolva cache.get(n)."},
+{l:4,t:"Busca binária",th:"<p>Em lista ordenada, olhe o meio e descarte metade a cada passo: O(log n). Procurar 1 em 1 milhão leva ~20 passos.</p>",tk:"Crie <code>buscaBinaria(arr, x)</code> que devolva o índice de x ou -1.",st:"function buscaBinaria(arr, x){\n  \n}\n",test:"T(buscaBinaria([1,3,5,7,9,11],7),buscaBinaria([1,3,5],4))",ex:"3 -1",h:"Mantenha ini e fim; meio = Math.floor((ini+fim)/2); ajuste ini ou fim."},
+{l:4,t:"Desafio final: Two Sum",th:"<p>Problema famoso de entrevistas. Força bruta usa 2 laços (O(n²)). Com um <code>Map</code> dá para resolver em uma passada (O(n)).</p>",tk:"Crie <code>doisSomam(arr, alvo)</code>: devolva os índices <code>[i, j]</code> (i &lt; j) cujos valores somam o alvo.",st:"function doisSomam(arr, alvo){\n  \n}\n",test:'T(doisSomam([2,7,11,15],9).join(","),doisSomam([3,2,4],6).join(","))',ex:"0,1 1,2",h:"Para cada x, procure no Map o valor alvo - x; senão guarde x com seu índice."}
+];
+const $=id=>document.getElementById(id);
+let S={done:{},code:{},cur:0};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem("redcode")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("redcode",JSON.stringify(S))}catch(e){}};
+let AC=null,MUTE=false;try{MUTE=localStorage.getItem("redsnd")==="0"}catch(e){}
+function tone(f,d,t="sine",v=.15,at=0){if(MUTE)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+at;o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d)}catch(e){}}
+const SFX={click:()=>tone(520,.06,"square",.05),run:()=>{tone(330,.08,"triangle");tone(495,.1,"triangle",.15,.07)},ok:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",.18,i*.1)),bad:()=>{tone(180,.18,"sawtooth",.1);tone(140,.25,"sawtooth",.1,.15)},lvl:()=>[523,659,784,659,784,1047].forEach((f,i)=>tone(f,.3,"square",.1,i*.12))};
+function upSnd(){$("snd").textContent=MUTE?"🔇":"🔊"}
+function side(){let h="",last=-1;L.forEach((x,i)=>{if(x.l!==last){const d=L.filter((y,j)=>y.l===x.l&&S.done[j]).length;h+="<h4>"+LV[x.l]+"<span>"+d+"/4</span></h4>";last=x.l}h+='<button data-i="'+i+'" class="'+(i===S.cur?"on ":"")+(S.done[i]?"ok":"")+'">'+(i+1)+". "+x.t+"</button>"});$("side").innerHTML=h;const n=Object.keys(S.done).length;$("pb").style.width=n/L.length*100+"%";$("pt").textContent=n+" de "+L.length+" lições";const R=["Novato","Aprendiz","Dev Jr","Dev Pleno","Dev Sênior","Mestre"];$("rk").textContent="🔥 "+R[Math.min(5,Math.floor(n/4)+(n===L.length?1:0))]+" · "+n*100+" XP";$("side").insertAdjacentHTML("beforeend",'<div class="foot">Desenvolvido por Josimar<br>Dica: Ctrl+Enter executa o código.<br><button id="bWipe">Apagar progresso</button></div>')}
+function show(i){S.cur=i;const x=L[i];$("lv").textContent=LV[x.l];$("ti").textContent=(i+1)+". "+x.t;$("th").innerHTML=x.th;hl();$("tk").innerHTML=x.tk;$("ed").value=S.code[i]??x.st;$("out").textContent="";$("res").innerHTML="";$("hint").hidden=true;$("bNext").disabled=!S.done[i]||i===L.length-1;side();save();$("side").classList.remove("open");scrollTo(0,0)}
+function hl(){document.querySelectorAll("#th pre").forEach(p=>{p.innerHTML=p.innerHTML.replace(/(\/\/[^\n]*)|("[^"]*"|`[^`]*`)|\b(function|return|let|const|if|else|for|of|class|new|async|await|get|constructor)\b|\b(\d+)\b/g,(m,c,s,k,n)=>c?'<span class="cm">'+c+'</span>':s?'<span class="st">'+s+'</span>':k?'<span class="kw">'+k+'</span>':'<span class="nm">'+n+'</span>')})}
+function boom(){const c=$("conf"),k=["#ff2b2b","#fff","#3ddc84","#ffb86c"];for(let i=0;i<60;i++){const p=document.createElement("i");p.className="p";p.style.cssText="left:"+Math.random()*100+"%;background:"+k[i%4]+";animation-delay:"+Math.random()*.4+"s";c.appendChild(p);setTimeout(()=>p.remove(),2400)}}
+async function run(){
+  SFX.run();const i=S.cur,x=L[i],code=$("ed").value;S.code[i]=code;save();
+  const o=[],t=[];const f=a=>typeof a==="object"?JSON.stringify(a):String(a);
+  const con={log:(...a)=>o.push(a.map(f).join(" ")),warn:(...a)=>o.push(a.map(f).join(" ")),error:(...a)=>o.push(a.map(f).join(" "))};
+  const T=(...a)=>t.push(a.map(String).join(" "));
+  const AF=Object.getPrototypeOf(async function(){}).constructor;let err=null;
+  try{await new AF("console","T","__o",code+"\n;\n"+x.test)(con,T,o)}catch(e){err=e}
+  $("out").textContent=o.join("\n")||"(nada foi mostrado)";
+  const got=t.join("\n").trim(),r=$("res");
+  if(err){r.innerHTML='<div class="res bad"></div>';r.firstChild.textContent="Erro: "+err.message;setTimeout(SFX.bad,200)}
+  else if(got===x.ex){S.done[i]=1;save();side();r.innerHTML='<div class="res good">✓ Correto! Lição concluída. +100 XP</div>';boom();setTimeout(SFX.ok,250);$("bNext").disabled=i===L.length-1;if(i===L.length-1)setTimeout(SFX.lvl,1100),r.innerHTML+='<div class="res good">🏆 Você terminou todos os níveis. Parabéns!</div>'}
+  else{r.innerHTML='<div class="res bad"></div>';r.firstChild.textContent="Ainda não. Esperado: "+x.ex+"  |  Obtido: "+(got||"(vazio)");setTimeout(SFX.bad,200)}
+}
+$("bRun").onclick=run;
+$("bHint").onclick=()=>{const h=$("hint");h.hidden=!h.hidden;h.textContent="💡 "+L[S.cur].h};
+$("bReset").onclick=()=>{delete S.code[S.cur];show(S.cur)};
+$("bNext").onclick=()=>show(S.cur+1);
+$("bPrev").onclick=()=>S.cur>0&&show(S.cur-1);
+$("snd").onclick=()=>{MUTE=!MUTE;try{localStorage.setItem("redsnd",MUTE?"0":"1")}catch(e){}upSnd();SFX.click()};
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(b&&!["snd","bRun"].includes(b.id))SFX.click()});
+upSnd();
+$("side").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.id==="bWipe"){if(confirm("Apagar todo o progresso?")){S={done:{},code:{},cur:0};save();show(0)}return}show(+b.dataset.i)};
+$("menu").onclick=()=>$("side").classList.toggle("open");
+$("ed").addEventListener("keydown",e=>{if(e.key==="Tab"){e.preventDefault();const a=e.target,s=a.selectionStart;a.setRangeText("  ",s,a.selectionEnd,"end")}else if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run()}});
+$("ed").addEventListener("input",()=>{S.code[S.cur]=$("ed").value;save();tone(700+Math.random()*250,.025,"square",.02)});
+show(Math.min(S.cur||0,L.length-1));
+</script>
+</body>
+</html>
